@@ -1,61 +1,70 @@
 <?php
 
-interface iFamily {
+abstract class Family
+{
+    public $peopleCount = 3;
+    abstract protected function count();
 
 }
 
-class Family implements iFamily{
-  public $peopleCount = 4;
-  protected $age;
-  
-  public function respect()
-  {
-    //...
-  }
-}
-
-interface iFather extends iFamily {
-
-}
-
-class Father implements iFather {
-  public $age = 40;
-  public $wife = 'Helen';
-  protected $housework = 'cleanUp';
-  
-  public function helpingMother() {
-    echo $this->housework;
-  }
-}
-
-interface iMother extends iFamily {
-
-}
-class Mother implements iMother {
-    public $age = 35;
-    public $husband = 'Mike';
-    protected $cook = 'different';
+class Father extends Family {
     
-  public function feedTheFamily() {
-      echo $this->cook;
+    public $wife = 'Елена';
+    public $age = 45;
+    
+    public function printNameW() {
+        echo "Имя моей жены " . $this->wife;
     }
-  }
+    
+    public function printAge() {
+        echo "Мне " . $this->age . " лет";
+    }
+    
+    public function count(){
+        echo "Количество человек в семье" . " - " . $this->peopleCount;
+    }
+}
 
-interface iChild extends iFather, iMother {
+class Mother extends Family {
+
+    public $husband = 'Иван';
+    public $age = 40;
+    
+    public function printAge() {
+        echo "Мне " . $this->age . " лет";
+    }
+    
+    public function count(){
+        echo "Количество человек в семье" . " - " . $this->peopleCount;
+    }
+    
+    public function printNameH() {
+        echo "Имя мужа " . $this->husband;
+    }
 
 }
 
+class Child extends Family {
 
-class Child implements iChild {
-  public $age = 15;
-  public $sex = 'man';
-  
-  public function helpingMother() {
-    echo 'I throw out the garbage';
-  }
+    public $sex = 'мужской';
+    public $age = 15;
+    
+    public function printSex() {
+        echo "Пол ребенка " . $this->sex;
+    }
+    
+    public function count(){
+        echo "Количество человек в семье" . " - " . $this->peopleCount;
+    }
 
 }
 
-$Child = new Child;
-var_dump($Child);
-$Child->helpingMother();
+$father = new Father();
+$mother = new Mother();
+$child = new Child();
+
+
+$child->printSex();
+echo PHP_EOL;
+$child->count();
+

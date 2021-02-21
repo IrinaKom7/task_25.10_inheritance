@@ -1,25 +1,23 @@
 <?php
 	interface iVehicle {
 		
-		public function ride();
+
 		
+		public function ride($speed);
 	}
 	
-	abstract class Vehicle implements iVehicle {
-		
-		public function ride(){
-		    echo 'ride';
-		}
-		
-	}
-	
-	class Car extends Vehicle {
+
+	class Car implements iVehicle {
 	    
-	    public $interiorСolor = 'Red';
-		
+	    public function ride($speed) {
+	        echo 'Машина может ездить co скоростью ' . $speed . 'км/ч';
+	    }
+	    
+	    public $interiorСolor = 'red';
+		public $elementsCar = 'Дворники';
 		
 		public function turnOnWipers(){
-		    echo 'move wipers';
+		    echo $this->elementsCar . ' включены';
 		}
 		public function pushSignal(){
 		    echo 'Signal on';
@@ -27,32 +25,55 @@
 		
 	}
 	
-	class Tank extends Vehicle {
+	class Tank implements iVehicle {
+	    
+	    private $elementsTank = 'Прицел';
 
 		public function shoot(){
-		    echo 'shoot on';
+		    echo $this->elementsTank . ' готов!';
 		}
+		
+		public function ride($speed) {
+	        echo 'Танк ездит co скоростью ' . $speed . 'км/ч';
+	    }
 		
 	}
 	
-	class SpecialMachine extends Vehicle {
+	class SpecialMachine implements iVehicle {
+	    
+	    private $elementsSpecial = 'Ковш';
 	    
 	    public function controlBucket(){
-	        echo 'Bucket run';
+	        echo $this->elementsSpecial . ' работает';
+	    }
+	    
+	   public function ride($speed) {
+	        echo 'Спецтехника может ездить co скоростью ' . $speed . 'км/ч';
 	    }
 	}
 	
-	$Car = new Car;
-	//$iVehicle = new Car;
-	$Tank = new Tank;
-	$SpecialMachine = new SpecialMachine;
+	$car = new Car;
+	$tank = new Tank;
+	$specialMachine = new SpecialMachine;
 	
-	
-    function Run(iVehicle $Car) {
-        $Car->turnOnWipers();
-    }
-	echo $Car->interiorСolor.PHP_EOL;
+    $ridingCar = 150;
+    $ridingTank = 20;
+    $ridingSpMach = 80;
     
-    Run($Car);
+    $car->turnOnWipers();
+	echo PHP_EOL;
+
+    
+    $car->ride($ridingCar);
+	echo PHP_EOL.PHP_EOL;
+
+    $tank->ride($ridingTank);
+	echo PHP_EOL;
+	$tank->shoot();
+	echo PHP_EOL.PHP_EOL;
+
+    $specialMachine->ride($ridingSpMach);
+	echo PHP_EOL;
+    $specialMachine->controlBucket();
      
 ?>
