@@ -63,8 +63,9 @@ $father = new Father();
 $mother = new Mother();
 $child = new Child();
 
-
-$child->printSex();
+$father->printNameW();
+echo PHP_EOL;
+$mother->printAge();
 echo PHP_EOL;
 $child->count();
 
